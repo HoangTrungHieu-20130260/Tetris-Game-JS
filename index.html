@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: url("https://media.istockphoto.com/id/1333071678/photo/earth-planet-surface-in-outer-space-stars-and-milky-way-on-background-sci-fi-space-wallpaper.jpg?b=1&s=170667a&w=0&k=20&c=5FwEjQOpFKSjnlK6j6rxpG6oK5jux508eenH79E8kdM=");
+            background-size: cover;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto 0 auto;
+            padding: 20px;
+            height: 500px;
+            background: rgb(5, 44, 115, 0.9);
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+        .list-choose {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100px;
+        }
+        .title {
+            margin-bottom: 20px;
+        }
+        .main > p {
+            margin-bottom: 100px;
+        }
+        .list-level {
+            display: none;
+            flex-direction: column;
+        }
+        .list-level>button{
+            margin-bottom: 5px;
+        }
+        .cell,
+        .next{
+            height: 25px;
+            border: 1px solid #10437b;
+            border-radius: 3px;
+        }
+        .next {
+            background: #011c31;
+        }
+        .game {
+            border: 1px solid #0377da;
+            padding: 20px;
+            background: rgb(6, 51, 126, 0.5);
+            border-radius: 5px;
+            height: min-content;
+            width: max-content;
+            margin: 0 20px;
+            position: relative;
+        }
+        .game-over {
+            position: absolute;
+            z-index: 999;
+            background: white;
+            left: 20px;
+            top: 100px;
+            padding: 20px;
+            display: none;
+        }
+        .left {
+            display: flex;
+            flex-direction: column;
+        }
+        .left>button {
+            margin-top: 30px;
+            padding: 10px 5px;
+            background: rgba(3, 76, 150, 0.8);
+            color: white;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+        }
+        .display-game {
+            display: none;
+        }
+        .game-box {
+            color: white;
+        }
+        .game-box h5{
+            background: rgba(3, 76, 150, 0.8);
+            border-bottom: 2px solid #2086d1;
+            padding: 5px 10px;
+            margin-bottom: 0;
+            width: 170px;
+            text-align: center;
+        }
+        .game-box .content {
+            background: rgb(5, 44, 115, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 2px solid #2086d1;
+        }
+        .game-box .content .bgr-number {
+            padding: 5px;
+            border: 2px solid #00133b;
+            border-radius: 50%;
+            background: #2dc7e4;
+            font-weight: bold;
+        }
+        .game-box .content .number-level {
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 50%;
+            background: #00133b;
+        }
+        .next-shape {
+            background: rgb(5, 44, 115, 0.9);
+            padding: 1px 20px;
+            border-bottom: 2px solid #2086d1;
+        }
+        .unmute {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container display-main">
+    <div class="main">
+        <h3 class="title">TETRIS GAME</h3>
+        <p>The strategic game <br> of linking & blocking!</p>
+        <div class="list-choose">
+            <button class="btn-play">Play</button>
+            <button class="btn-exit">Exit</button>
+        </div>
+        <div class="list-level">
+            <button class="lv lv0">Level 0</button>
+            <button class="lv lv1">Level 1</button>
+            <button class="lv lv2">Level 2</button>
+            <button class="lv lv3">Level 3</button>
+            <button class="lv lv4">Level 4</button>
+            <button class="lv lv5">Level 5</button>
+            <button class="btn-back">Back</button>
+        </div>
+    </div>
+</div>
+<div class="container display-game">
+    <div class="left">
+        <button class="back-to-menu">Main Menu</button>
+        <button class="pause">Pause</button>
+        <button class="unmute"><i class="fa-solid fa-volume-high"></i></button>
+        <button class="mute"><i class="fa-solid fa-volume-xmark"></i></button>
+
+    </div>
+    <div class="game">
+        <div class="game-over text-center">
+            <h3>Game Over</h3>
+            <p>Score: <span class="score-over"></span></p>
+            <div class="d-flex justify-content-around">
+                <button class="over-menu">Menu</button>
+                <button class="over-again">Again</button>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="level game-box">
+            <h5>Level</h5>
+            <div class="content">
+                <div class="bgr-number">
+                    <div class="number-level">1</div>
+                </div>
+            </div>
+        </div>
+        <div class="score game-box mt-4 mb-4">
+            <h5>Score</h5>
+            <div class="content">
+                0
+            </div>
+        </div>
+        <div class="next game-box">
+            <h5>Next</h5>
+            <div class="next-shape">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.6.3.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
